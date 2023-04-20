@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+
+
+
 
 function Signup() {
     const [email, setEmail] = useState('');
@@ -6,6 +10,17 @@ function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const newUser = {email, password};
+
+        fetch('https://us-east-1.aws.data.mongodb-api.com/app/mylandapp-howts/endpoint/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
     }
     const handleEmail = (e) => {
         setEmail(e.target.value)
