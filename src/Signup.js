@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 
-
-
-
-
 function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -1,22 +1,26 @@
 require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+
+// routes
+const loginRoute = require('./auth.js');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.get("/", (req, res) =>{
+app.get("/api", (req, res) =>{
     res.send('My Land App Server');
 });
 
-app.post("/posted", (req, res) => {
-    if(req.body.name){
-        return res.json({name: req.body.name})
-    } else {
-        return res.status(400).json({error: 'not posted'})
-    }
-})
+app.use('/api/auth', loginRoute);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server up on port ${process.env.PORT}`);
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    console.log('db is connected!')
+
+    app.listen(process.env.PORT, () => {
+        console.log(`Server up on port ${process.env.PORT}`);
+    });
+}).catch((error) =>{
+    console.log(error);
 });
