@@ -85,7 +85,7 @@ router.get('/owners', async (req, res) => {
     
     router.post('/owners', async (req, res) => {
       const owner = new Owner({
-        name: req.body.name,
+        ownerName: req.body.ownerName,
         entityType: req.body.entityType,
         ownerType: req.body.ownerType,
         address: req.body.address,
@@ -101,7 +101,7 @@ router.get('/owners', async (req, res) => {
     
     router.put('/owners/:id', async (req, res) => {
       const owner = await Owner.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
+        ownerName: req.body.ownerName,
         entityType: req.body.entityType,
         ownerType: req.body.ownerType,
         address: req.body.address,
@@ -130,12 +130,12 @@ router.get('/landholdings', async (req, res) => {
 // Create a land holding
 router.post('/landholdings', async (req, res) => {
     const landHolding = new LandHolding({
-      name: req.body.name,
+      ownerName: req.body.ownerName,
       owner: req.body.owner,
       legalEntity: req.body.legalEntity,
       netMineralAcres: req.body.netMineralAcres,
       mineralOwnerRoyalty: req.body.mineralOwnerRoyalty,
-      sectionName: req.body.sectionName,
+      sectionownerName: req.body.sectionownerName,
       section: req.body.section,
       township: req.body.township,
       range: req.body.range,
@@ -152,8 +152,8 @@ router.post('/landholdings', async (req, res) => {
 
   // patch updates landholdings by field
   router.patch('/landholdings/:id', LandHolding, async (req, res) => {
-    if (req.body.name != null) {
-      res.landHolding.name = req.body.name;
+    if (req.body.ownerName != null) {
+      res.landHolding.ownerName = req.body.ownerName;
     }
     if (req.body.owner != null) {
       res.landHolding.owner = req.body.owner;
@@ -167,8 +167,8 @@ router.post('/landholdings', async (req, res) => {
     if (req.body.mineralOwnerRoyalty != null) {
       res.landHolding.mineralOwnerRoyalty = req.body.mineralOwnerRoyalty;
     }
-    if (req.body.sectionName != null) {
-      res.landHolding.sectionName = req.body.sectionName;
+    if (req.body.sectionownerName != null) {
+      res.landHolding.sectionownerName = req.body.sectionownerName;
     }
     if (req.body.section != null) {
       res.landHolding.section = req.body.section;

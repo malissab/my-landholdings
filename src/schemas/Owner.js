@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
 
 const ownerSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
+  ownerName: { type: String, required: true, unique: true },
   entityType: { type: String, enum: ['Company', 'Individual', 'Investor', 'Trust'] },
   ownerType: { type: String, enum: ['Competitor', 'Seller', 'Investor', 'Professional'] },
   address: { type: String, unique: true },
   totalNumberOfLandHoldings: { type: Number },
 }, { timestamps: true });
 
-ownerSchema.path('name').validate(async function(value) {
-      const owner = await this.constructor.findOne({ name: value });
+ownerSchema.path('ownerName').validate(async function(value) {
+      const owner = await this.constructor.findOne({ ownerName: value });
       if (owner) {
         if (this.id === owner.id) {
           // updates owner
           return true;
         }
-        // This is a new owner, so the name must be unique
+        // This is a new owner, so the ownerName must be unique
         return false;
       }
       return true;
-    }, 'Name must be unique');
+    }, 'ownerName must be unique');
     
     ownerSchema.path('address').validate(async function(value) {
       const owner = await this.constructor.findOne({ address: value });
