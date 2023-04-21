@@ -11,6 +11,9 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { ObjectId } = require('mongodb');
 const secretKey = crypto.randomBytes(64).toString('hex');
+const cors = require('cors');
+
+router.use(cors());
 
 
 
@@ -153,20 +156,48 @@ router.post('/landholdings', async (req, res) => {
 
   // updates a land holding
   router.patch('/landholdings/:id', (req, res) => {
-      const updatedLandHolding = req.body;
-    
-      if(ObjectId.isValid(req.params.id)){
+      const updatedLandHolding = {};
+      
+      // check if each field in the request body is modified and update accordingly
+      if (req.body.section || req.body.township || req.body.range || req.body.legalEntity) {
+      updatedLandHolding.sectionName = `${req.body.section || req.params.section}-${req.body.township || req.params.township}-${req.body.range || req.params.range}`;
+      updatedLandHolding.name = `${updatedLandHolding.sectionName} ${req.body.legalEntity || req.params.legalEntity}`;
+    }
+      if (req.body.legalEntity) {
+        updatedLandHolding.legalEntity = req.body.legalEntity;
+      }
+      if (req.body.netMineralAcres) {
+        updatedLandHolding.netMineralAcres = req.body.netMineralAcres;
+      }
+      if (req.body.mineralOwnerRoyalty) {
+        updatedLandHolding.mineralOwnerRoyalty = req.body.mineralOwnerRoyalty;
+      }
+      if (req.body.section) {
+          updatedLandHolding.section = req.body.section;
+        }
+      if (req.body.township) {
+            updatedLandHolding.township = req.body.township;
+          }
+      if (req.body.range) {
+            updatedLandHolding.range = req.body.range;
+          }
+      if (req.body.titleSource) {
+        updatedLandHolding.titleSource = req.body.titleSource;
+      }
+      
+      // update the document with the modified fields
+      if (ObjectId.isValid(req.params.id)) {
         LandHolding.updateOne({_id: new ObjectId(req.params.id)}, {$set: updatedLandHolding})
           .then(result => {
-            res.status(200).json(result);
+            res.status(200).json(result)
           })
           .catch(error => {
-            res.status(500).json({error: 'Land holding not updated'});
-          });
+            res.status(500).json({error: 'Land holding not updated'})
+          })
       } else {
-        res.status(500).json({error: 'Invalid id'});
+        res.status(500).json({error: 'Invalid id'})
       }
-    });
+    })
   // deletes a landholding
 
   router.delete('/landholdings/:id', async (req, res) => {
