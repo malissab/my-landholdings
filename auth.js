@@ -95,7 +95,8 @@ router.get('/owners', async (req, res) => {
       res.send(owner);
     });
     
-    router.post('/owners', async (req, res) => {
+    // creates a new owner
+    router.post('/newowner', async (req, res) => {
       const owner = new Owner({
         ownerName: req.body.ownerName,
         entityType: req.body.entityType,
@@ -111,7 +112,7 @@ router.get('/owners', async (req, res) => {
       }
     });
     
-    router.put('/owners/:id', async (req, res) => {
+    router.put('/owner/:id', async (req, res) => {
       const owner = await Owner.findByIdAndUpdate(req.params.id, {
         ownerName: req.body.ownerName,
         entityType: req.body.entityType,
@@ -123,7 +124,7 @@ router.get('/owners', async (req, res) => {
       res.send(owner);
     });
     
-    router.delete('/owners/:id', async (req, res) => {
+    router.delete('/owner/:id', async (req, res) => {
       const owner = await Owner.findByIdAndRemove(req.params.id);
       if (!owner) return res.status(404).send('Owner not found');
       res.send(owner);
@@ -140,7 +141,7 @@ router.get('/landholdings', async (req, res) => {
 
 // posts new landholdings
 // Create a land holding
-router.post('/landholdings', async (req, res) => {
+router.post('/newlandholding', async (req, res) => {
     const landHolding = new LandHolding({
       ownerName: req.body.ownerName,
       owner: req.body.owner,
@@ -163,7 +164,7 @@ router.post('/landholdings', async (req, res) => {
   });
 
   // updates a land holding
-  router.patch('/landholdings/:id', (req, res) => {
+  router.patch('/landholding/:id', (req, res) => {
       const updatedLandHolding = {};
       
       // check if each field in the request body is modified and update accordingly
@@ -208,7 +209,7 @@ router.post('/landholdings', async (req, res) => {
     })
   // deletes a landholding
 
-  router.delete('/landholdings/:id', async (req, res) => {
+  router.delete('/landholding/:id', async (req, res) => {
       try {
         const landHolding = await LandHolding.findByIdAndDelete(req.params.id);
     
