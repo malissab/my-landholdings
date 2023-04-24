@@ -23,17 +23,26 @@ router.use(cors());
 // creates new user and saves to database
 router.post('/signup', async (req, res) => {
     try {
-      // Check if email already exists
-      const existingUser = await User.findOne({ email: req.body.email });
+      const { email, password, passwordConfirmation } = req.body;
+
+      // Checks if email already exists
+      const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ msg: 'User already exists' });
       }
+
+      if(password !== passwordConfirmation){
+        return res.status(400).json({ msg: 'Passwords do not match' })
+      }
   
-      // Create new user
-      const hashedPassword = await bcrypt.hash(req.body.password, 12)
-        const user = new User({
-            email: req.body.email,
-            password: hashedPassword
+      // Hashes new user password
+      const hashedPassword = await bcrypt.hash(password, 12)
+
+      // Creates and saves new user
+      const user = new User({
+            email: email,
+            password: hashedPassword,
+            passwordConfirmation: hashedPassword
         })
       await user.save();
   
@@ -46,27 +55,26 @@ router.post('/signup', async (req, res) => {
     }
   });
   
-// route api/auth/login
-// takes user to login page after being authenticated
-// generates token for authenticated user
+// route api/auth/dashboard
   router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
   
-      // Check if user exists
+      // Check if user email exists
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ msg: 'Invalid credentials' });
+        return res.status(400).json({ msg: 'Not a user' });
       }
   
-      // Check if password is correct
-      const isMatch = await bcrypt.compare(password, user.password);
+      // Checks if users matched email, matches password
+      const isMatch = await bcrypt.compare(password, user.password)
       if (!isMatch) {
-        return res.status(400).json({ msg: 'Invalid credentials' });
+        return res.status(400).json({ msg: 'Not a user password' });
       }
   
       // Generate JWT token and send it in response
       const token = jwt.sign({ userId: user._id }, secretKey, process.env.JWT_SECRET);
+      console.log('token:', token)
       res.json({ token });
     } catch (err) {
       console.error(err);
@@ -126,7 +134,7 @@ router.get('/owners', async (req, res) => {
 
 // get all landholdings
 router.get('/landholdings', async (req, res) => {
-      const landHoldings = await LandHolding.find();
+      const landHoldings = await LandHolding.find().populate('owner', 'ownerName');
       res.send(landHoldings);
     });
 
