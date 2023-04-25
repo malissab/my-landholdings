@@ -2,16 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Toolbar, Typography, AppBar } from "@mui/material";
 import CreateOwnerForm from "./CreateOwnerForm";
 import CreateLandHoldingForm from "./CreateLandHoldingForm";
+import UpdateLandHolding from "./UpdateLandHolding";
 
 function Dashboard({ isSignedUp, isLoggedIn }) {
   const [owners, setOwners] = useState([]);
+  const [showLandHoldingForm, setShowLandHoldingForm] = useState(false);
+  const [updateOwnerForm, setUpdateOwnerForm] = useState(false);
+  const [selectedLandHolding, setSelectedLandHolding] = useState(null);
+  const [selectedOwner, setSelectedOwner] = useState(null);
+  const [deleteOwner, setDeleteOwner] = useState(false);
+  const [DeleteLandHolding, setDeleteLandHolding] = useState(false);
+
   const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
   const [openLandHoldings, setOpenLandHoldings] = useState(false);
   const ownersUrl = "http://localhost:5000/api/auth/owners";
   const landHoldingsUrl = "http://localhost:5000/api/auth/landholdings";
-
-
 
 
   const handleOpenOwners = () => {
@@ -29,6 +35,16 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   const handleCloseLandHolding = () => {
     setOpenLandHoldings(false);
   };
+
+  const handleEditLandHolding = (landholding) => {
+    setSelectedLandHolding(landholding);
+    setShowLandHoldingForm(true);
+  }
+
+  const handleCloseEditLandHolding = () => {
+    setShowLandHoldingForm(false);
+  }
+
 
   useEffect(() => {
     fetch(ownersUrl)
@@ -64,6 +80,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>Owner Type</TableCell>
               <TableCell>Address</TableCell>
               <TableCell>Total # of Land Holdings</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,6 +91,10 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>{owner.ownerType}</TableCell>
               <TableCell>{owner.address}</TableCell>
               <TableCell>{owner.totalNumberOfLandHoldings}</TableCell>
+              <TableCell>
+                {/* <Button variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
+                <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button> */}
+              </TableCell>
             </TableRow>
           ))}
           </TableBody>
@@ -110,6 +131,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>Township</TableCell>
               <TableCell>Range</TableCell>
               <TableCell>Title Source</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody >
@@ -127,12 +149,17 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
             <TableCell>{landholding.township}</TableCell>
             <TableCell>{landholding.range}</TableCell>
             <TableCell>{landholding.titleSource}</TableCell>
+            <TableCell>
+                <Button variant="contained" color="primary" onClick={() => handleEditLandHolding(landholding)}>Edit</Button>
+                {/* <Button variant="contained" color="primary" onClick={() => handleDeleteLandHolding(landholding)}>Delete</Button> */}
+              </TableCell>
             </TableRow>
               )
             })}
             </TableBody>      
           </Table>
       </TableContainer>
+      {showLandHoldingForm && <UpdateLandHolding landholding={selectedLandHolding} handleCloseEditLandHolding={handleCloseEditLandHolding}/>}
         
           <Button variant="contained" color="primary" onClick={handleOpenLandHolding} sx={{ margin: 1 }}>
         Create Landholding

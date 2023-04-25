@@ -176,9 +176,8 @@ router.get('/landholdings', async (req, res) => {
     });
 
   // updates a land holding
-  router.patch('/landholding/:id', (req, res) => {
-      const updatedLandHolding = {};
-      
+  router.patch('/newlandholding/:id', (req, res) => {
+    const updatedLandHolding = {};
       // check if each field in the request body is modified and update accordingly
       if (req.body.section || req.body.township || req.body.range || req.body.legalEntity) {
       updatedLandHolding.sectionName = `${req.body.section || req.params.section}-${req.body.township || req.params.township}-${req.body.range || req.params.range}`;
