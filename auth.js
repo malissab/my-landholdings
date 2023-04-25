@@ -95,8 +95,11 @@ router.get('/owners', async (req, res) => {
       res.send(owner);
     });
     
+
+
     // creates a new owner
     router.post('/newowner', async (req, res) => {
+
       const owner = new Owner({
         ownerName: req.body.ownerName,
         entityType: req.body.entityType,
@@ -132,36 +135,45 @@ router.get('/owners', async (req, res) => {
 
 // Land Holding routes
 // route /api/auth/landholdings
-
 // get all landholdings
 router.get('/landholdings', async (req, res) => {
-      const landHoldings = await LandHolding.find().populate('owner', 'ownerName');
+      const landHoldings = await LandHolding.find().populate('owner');
       res.send(landHoldings);
     });
+    
 
-// posts new landholdings
-// Create a land holding
-router.post('/newlandholding', async (req, res) => {
-    const landHolding = new LandHolding({
-      ownerName: req.body.ownerName,
-      owner: req.body.owner,
-      legalEntity: req.body.legalEntity,
-      netMineralAcres: req.body.netMineralAcres,
-      mineralOwnerRoyalty: req.body.mineralOwnerRoyalty,
-      sectionownerName: req.body.sectionownerName,
-      section: req.body.section,
-      township: req.body.township,
-      range: req.body.range,
-      titleSource: req.body.titleSource
+     // creates a new landholding
+     router.post('/newlandholding', async (req, res) => {
+      try {    
+        // Find the owner by its ID
+        const owner = await Owner.findOne({ ownerName: req.body.ownerName })
+        console.log(owner.ownerName)
+        if (!owner) {
+          return res.status(404).json({ message: 'Owner not found' });
+        }
+    
+        // Create a new LandHolding instance with a reference to the foundOwner
+        const newLandHolding = new LandHolding({
+          name: req.body.name,
+          owner: owner._id,
+          legalEntity: req.body.legalEntity,
+          netMineralAcres: req.body.netMineralAcres,
+          mineralOwnerRoyalty: req.body.mineralOwnerRoyalty,
+          sectionName: req.body.sectionName,
+          section: req.body.section,
+          township: req.body.township,
+          range: req.body.range,
+          titleSource: req.body.titleSource
+        });
+        // Save the new LandHolding instance
+        const savedLandHolding = await newLandHolding.save();
+        
+        res.status(201).json(savedLandHolding);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+      }
     });
-  
-    try {
-      const newLandHolding = await landHolding.save();
-      res.status(201).json(newLandHolding);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  });
 
   // updates a land holding
   router.patch('/landholding/:id', (req, res) => {

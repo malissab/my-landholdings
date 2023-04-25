@@ -20,6 +20,8 @@ ownerSchema.path('ownerName').validate(async function(value) {
       }
       return true;
     }, 'ownerName must be unique');
+
+    
     
     ownerSchema.path('address').validate(async function(value) {
       const owner = await this.constructor.findOne({ address: value });

@@ -1,20 +1,24 @@
 import React, {useState} from 'react'
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 
 
-function CreateOwnerForm({ owners, setOwners, handleClose }) {
+function CreateOwnerForm({ owners, setOwners, handleCloseOwners }) {
 const [ownerName, setOwnerName] = useState('');
 const [entityType, setEntityType] = useState('');
 const [ownerType, setOwnerType] = useState('');
 const [address, setAddress] = useState('');
 const [totalNumberOfLandHoldings, setTotalNumberOfLandHoldings] = useState('');
 
+const entityTypeValues = ['Company', 'Individual', 'Investor', 'Trust'];
+const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
+
 const newOwnerUrl = 'http://localhost:5000/api/auth/newowner';
 
 
 
-const handleOwner = (e) => {
+
+const handleChange = (e) => {
         e.preventDefault();
         const createdOwner = { ownerName, entityType, ownerType, address, totalNumberOfLandHoldings };
         fetch(newOwnerUrl, {
@@ -27,13 +31,13 @@ const handleOwner = (e) => {
         .then(res => res.json())
         .then(data => {
             setOwners([...owners, data]);
-            handleClose();
+            handleCloseOwners();
         });
     };
 
 
   return (
-    <form onSubmit={handleOwner}>
+    <form onSubmit={handleChange}>
     <TextField
       required
       id="ownerName"
@@ -42,22 +46,37 @@ const handleOwner = (e) => {
       onChange={(e) => setOwnerName(e.target.value)}      
       margin="normal"
     />
-    <TextField
-      required
-      id="entityType"
-      label="Entity Type"
-      value={entityType}
-      onChange={(e) => setEntityType(e.target.value)}      
-      margin="normal"
-    />
-    <TextField
-      required
-      id="ownerType"
-      label="Owner Type"
-      value={ownerType}
-      onChange={(e) => setOwnerType(e.target.value)}      
-      margin="normal"
-    />
+    <FormControl required>
+        <InputLabel id='select-entity-type-label'>Entity Type</InputLabel>
+        <Select
+          labelId='select-entity-type-label'
+          id="entityType"
+          label="Entity Type"
+        value={entityType}
+        onChange={(e) => setEntityType(e.target.value)}>     
+        {entityTypeValues.map((value) => (
+            <MenuItem key={value} value={value}>
+              {value}
+            </MenuItem>
+          ))}
+        </Select>
+
+        </FormControl>
+        <FormControl required>
+        <InputLabel id='select-owner-type-label'>Owner Type</InputLabel>
+        <Select
+          labelId='select-owner-type-label'
+          id="ownerType"
+          label="Owner Type"
+        value={ownerType}
+        onChange={(e) => setOwnerType(e.target.value)}>     
+        {ownerTypeValues.map((value) => (
+            <MenuItem key={value} value={value}>
+              {value}
+            </MenuItem>
+          ))}
+        </Select>
+        </FormControl>
     <TextField
       required
       id="address"

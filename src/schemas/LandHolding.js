@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const landHoldingSchema = new mongoose.Schema({
   name: { type: String },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Owner', required: true },

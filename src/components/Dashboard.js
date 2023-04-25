@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Toolbar, Typography, AppBar } from "@mui/material";
 import CreateOwnerForm from "./CreateOwnerForm";
 import CreateLandHoldingForm from "./CreateLandHoldingForm";
 
 function Dashboard({ isSignedUp, isLoggedIn }) {
   const [owners, setOwners] = useState([]);
+  const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
+  const [openLandHoldings, setOpenLandHoldings] = useState(false);
   const ownersUrl = "http://localhost:5000/api/auth/owners";
   const landHoldingsUrl = "http://localhost:5000/api/auth/landholdings";
-  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+
+
+
+  const handleOpenOwners = () => {
+    setOpenOwners(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseOwners = () => {
+    setOpenOwners(false);
+  };
+
+  const handleOpenLandHolding = () => {
+    setOpenLandHoldings(true);
+  };
+
+  const handleCloseLandHolding = () => {
+    setOpenLandHoldings(false);
   };
 
   useEffect(() => {
@@ -32,80 +39,120 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   useEffect(() => {
     fetch(landHoldingsUrl)
       .then((res) => res.json())
-      .then((data) => setLandHoldings(data));
+      .then((data) => 
+      setLandHoldings(data));
   }, []);
 
   if (isSignedUp || isLoggedIn === true) {
     return (
-      <div>
-        <h1>My Land Dashboard</h1>
-        <h2>Owners</h2>
-        <ul>
+      <>
+       <Box sx={{ flexGrow: 1, marginBottom: 3 }}>
+      <AppBar position="static">
+        <Toolbar >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            My Land Dashboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Box>
+      <TableContainer component={Paper}>
+        <Table sx = {{ minWidth: 650}} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Owner Name</TableCell>
+              <TableCell>Entity Type</TableCell>
+              <TableCell>Owner Type</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell>Total # of Land Holdings</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
           {owners.map((owner) => (
-            <div key={owner._id}>
-              <p>{owner.ownerName}</p>
-              <p>{owner.entityType}</p>
-              <p>{owner.ownerType}</p>
-              <p>{owner.address}</p>
-              <p>{owner.totalNumberOfLandHoldings}</p>
-            </div>
+            <TableRow key={owner._id}>
+              <TableCell>{owner.ownerName}</TableCell>
+              <TableCell>{owner.entityType}</TableCell>
+              <TableCell>{owner.ownerType}</TableCell>
+              <TableCell>{owner.address}</TableCell>
+              <TableCell>{owner.totalNumberOfLandHoldings}</TableCell>
+            </TableRow>
           ))}
-        </ul>
-
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+          </TableBody>
+          </Table>
+          </TableContainer>
+        <Button variant="contained" color="primary" onClick={handleOpenOwners} sx={{ margin: 1}}>
           Create Owner
         </Button>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={openOwners} onClose={handleCloseOwners}>
           <DialogTitle>Create Owner</DialogTitle>
           <DialogContent>
             <CreateOwnerForm
               owners={owners}
               setOwners={setOwners}
-              handleClose={handleClose}
+              handleCloseOwners={handleCloseOwners}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleCloseOwners}>Cancel</Button>
           </DialogActions>
         </Dialog>
 
-        <h2>Landholdings</h2>
-        <ul>
-        {landHoldings.map((landholding) => (
-          <div key={landholding._id}>
-            <p>{landholding.name}</p>
-            <p>{landholding.owner.ownerName}</p>
-            <p>{landholding.legalEntity}</p>
-            <p>{landholding.mineralOwnerRoyalty}%</p>
-            <p>{landholding.sectionName}</p>
-            <p>{landholding.section}</p>
-            <p>{landholding.township}</p>
-            <p>{landholding.range}</p>
-            <p>{landholding.titleSource}</p>
-          </div>
-        ))}
-        </ul>
-          <Button variant="contained" color="primary" onClick={handleClickOpen}>
+           <TableContainer component={Paper}>
+           <Table sx = {{ minWidth: 650}} aria-label="simple table">
+             <TableHead>
+               <TableRow>  
+              <TableCell>Name</TableCell>
+              <TableCell>Owner Name</TableCell>
+              <TableCell>Entity Type</TableCell>
+              <TableCell>Net Mineral Acres</TableCell>             
+              <TableCell>Mineral Owner Royalty(%)</TableCell>
+              <TableCell>Section Name</TableCell>
+              <TableCell>Section</TableCell>
+              <TableCell>Township</TableCell>
+              <TableCell>Range</TableCell>
+              <TableCell>Title Source</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody >
+            {landHoldings.map((landholding) => {
+              console.log(landholding);
+              return (
+                <TableRow key={landholding._id}>
+                <TableCell>{landholding.name}</TableCell>
+                <TableCell>{landholding.owner.ownerName}</TableCell>
+            <TableCell>{landholding.legalEntity}</TableCell>
+            <TableCell>{landholding.netMineralAcres}</TableCell>
+            <TableCell>{landholding.mineralOwnerRoyalty}%</TableCell>
+            <TableCell>{landholding.sectionName}</TableCell>
+            <TableCell>{landholding.section}</TableCell>
+            <TableCell>{landholding.township}</TableCell>
+            <TableCell>{landholding.range}</TableCell>
+            <TableCell>{landholding.titleSource}</TableCell>
+            </TableRow>
+              )
+            })}
+            </TableBody>      
+          </Table>
+      </TableContainer>
+        
+          <Button variant="contained" color="primary" onClick={handleOpenLandHolding} sx={{ margin: 1 }}>
         Create Landholding
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openLandHoldings} onClose={handleCloseLandHolding}>
         <DialogTitle>Create Landholding</DialogTitle>
         <DialogContent>
-          <CreateLandHoldingForm landHoldings={landHoldings} setLandHoldings={setLandHoldings} handleClose={handleClose} />
+          <CreateLandHoldingForm 
+          landHoldings={landHoldings} 
+          setLandHoldings={setLandHoldings} 
+          handleCloseLandHolding={handleCloseLandHolding}
+          owners={owners} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleCloseLandHolding}>Cancel</Button>
         </DialogActions>
       </Dialog>
-      </div>
+      </>
     );
-  } else {
-    return (
-      <div>
-        Please <Link to="/signup">sign up</Link> or{" "}
-        <Link to="/login">log in</Link> to access the dashboard.
-      </div>
-    );
+    
   }
 }
 
