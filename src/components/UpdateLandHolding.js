@@ -100,8 +100,11 @@ function UpdateLandHolding({landholding, handleCloseEditLandHolding}) {
         onChange={(e) => setRange(e.target.value)}
         margin="normal"
       />
+           <br />
       <FormControl required>
+ 
         <InputLabel id="select-title-source-label">Title Source</InputLabel>
+        
         <Select
           labelId="select-title-source-label"
           id="titleSource"
@@ -116,7 +119,8 @@ function UpdateLandHolding({landholding, handleCloseEditLandHolding}) {
           ))}
         </Select>
       </FormControl>
-      <Button type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
+      <br />
+      <Button sx={{marginTop: 1}} type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
         Update
       </Button>
     </form>

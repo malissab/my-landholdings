@@ -45,8 +45,11 @@ const handleChange = (e) => {
       value={ownerName}
       onChange={(e) => setOwnerName(e.target.value)}      
       margin="normal"
+      sx={{display: "flex",
+      flexDirection: "column", marginTop: 1}}
     />
-    <FormControl required>
+    <FormControl sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}} required>
         <InputLabel id='select-entity-type-label'>Entity Type</InputLabel>
         <Select
           labelId='select-entity-type-label'
@@ -62,7 +65,8 @@ const handleChange = (e) => {
         </Select>
 
         </FormControl>
-        <FormControl required>
+        <FormControl sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}} required>
         <InputLabel id='select-owner-type-label'>Owner Type</InputLabel>
         <Select
           labelId='select-owner-type-label'
@@ -84,6 +88,8 @@ const handleChange = (e) => {
       value={address}
       onChange={(e) => setAddress(e.target.value)}      
       margin="normal"
+      sx={{display: "flex",
+      flexDirection: "column", marginTop: 1}}
     />
     <TextField
       required
@@ -93,7 +99,8 @@ const handleChange = (e) => {
       onChange={(e) => setTotalNumberOfLandHoldings(e.target.value)}      
       margin="normal"
     />
-    <Button type="submit" variant="contained" color="primary">
+   
+    <Button sx={{margin: 3}} type="submit" variant="contained" color="primary">
       Create
     </Button>
   </form>

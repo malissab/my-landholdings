@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { TextField, Button, Paper } from '@mui/material'
+
 
 function SignUpForm({ isSignedUp, setIsSignedUp }) {
   const [email, setEmail] = useState("");
@@ -33,48 +35,51 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
   };
 
   return (
-    <div>
-            Signup       
+    <div>   
       <form onSubmit={handleSignup}>
-                
-        <label>
-                    Email:           
-          <input
+        <Paper sx={{
+      width: "70%",
+      maxWidth: 300,
+      margin: "0 auto",
+      padding: 10,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }}>      
+         <TextField
+        sx={{width: "100%"}}
             type="email"
             value={email}
+            name="email"
+            placeholder="Email"
+            helperText="Please enter your email"
             onChange={(e) => setEmail(e.target.value)}
-          />
-                  
-        </label>
-                
+          />         
         <br />
                 
-        <label>
-                    Password:           
-          <input
+        <TextField
+        sx={{width: "100%"}}
             type="password"
             value={password}
+            name="password"
+            placeholder="Password"
+            helperText="Please enter your password"
             onChange={(e) => setPassword(e.target.value)}
           />
-                  
-        </label>
-                
         <br /> 
-        <label>
-                    Password Confirmation:           
-          <input
+        <TextField
+        sx={{width: "100%"}}
             type="password"
+            name="passwordConfirmation"
             value={passwordConfirmation}
+            placeholder="Password Confirmation"
+            helperText="Please reenter your password"
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
-                  
-        </label>
-                
         <br />
-                <button type="submit">Sign up</button>
-              
+                <Button sx={{alignItems: "center"}} type="submit" variant="contained" color="primary">Sign up</Button>
+             </Paper> 
       </form>
-          
     </div>
   );
 }

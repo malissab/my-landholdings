@@ -121,7 +121,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>{owner.address}</TableCell>
               <TableCell>{owner.totalNumberOfLandHoldings}</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
+                <Button sx={{margin: 1}} variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
                <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button> 
               </TableCell>
             </TableRow>

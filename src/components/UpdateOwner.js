@@ -49,14 +49,16 @@ const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
       onChange={handleChange}      
       margin="normal"
     />
-    <FormControl required>
+    <FormControl sx={{marginTop: 2}} required>
         <InputLabel id='select-entity-type-label'>Entity Type</InputLabel>
         <Select
           labelId='select-entity-type-label'
           id="entityType"
           label="Entity Type"
         value={formData.entityType}
-        onChange={handleChange}>     
+        onChange={handleChange}
+        
+        >     
         {entityTypeValues.map((value) => (
             <MenuItem key={value} value={value}>
               {value}
@@ -65,7 +67,7 @@ const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
         </Select>
 
         </FormControl>
-        <FormControl required>
+        <FormControl sx={{marginTop: 2}} required>
         <InputLabel id='select-owner-type-label'>Owner Type</InputLabel>
         <Select
           labelId='select-owner-type-label'
@@ -97,6 +99,7 @@ const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
       
       margin="normal"
     />
+    <br />
       <Button type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
         Update
       </Button>

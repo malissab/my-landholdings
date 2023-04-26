@@ -95,8 +95,8 @@ return (
           label="Owner"
           value={owner}
           onChange={handleOwnerChange}
-          style={{ width: 450 }}
-        >
+          sx={{width: 550, display: "flex",
+          flexDirection: "column"}}>
           {owners.map((owner) => (
             <MenuItem key={owner._id} value={owner}>
               {`${owner.ownerName}`}
@@ -110,7 +110,9 @@ return (
         label="Legal Entity"
         value={legalEntity}
         onChange={handleLegalEntityChange}
-        margin="normal"
+        sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}}
+
       />
       <TextField
         required
@@ -119,6 +121,8 @@ return (
         value={netMineralAcres}
         onChange={handleNetMineralAcresChange}
         margin="normal"
+        sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}}
       />
       <TextField
         required
@@ -127,6 +131,8 @@ return (
         value={mineralOwnerRoyalty}
         onChange={handleMineralOwnerRoyaltyChange}
         margin="normal"
+        sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}}
       />
       <TextField
         required
@@ -135,6 +141,9 @@ return (
         value={section}
         onChange={handleSectionChange}
         margin="normal"
+        helperText="Numbers only"
+        sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}}
       />
       <TextField
         required
@@ -143,6 +152,9 @@ return (
         value={township}
         onChange={handleTownshipChange}
         margin="normal"
+        helperText="Must be 3 digits, end in N or S"
+        sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}}
       />
       <TextField
         required
@@ -151,6 +163,9 @@ return (
         value={range}
         onChange={handleRangeChange}
         margin="normal"
+        helperText="Must be 3 digits, end in E or W"
+        sx={{display: "flex",
+        flexDirection: "column", marginTop: 1}}
       />
       <FormControl required>
         <InputLabel id="select-title-source-label">Title Source</InputLabel>
@@ -169,7 +184,8 @@ return (
           ))}
         </Select>
       </FormControl>
-      <Button type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
+      < br />
+      <Button sx={{marginTop: 1}}type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
         Submit
       </Button>
     </form>

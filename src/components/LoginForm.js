@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { TextField, Button, Paper } from '@mui/material'
 
 
 function LoginForm({ isLoggedIn, setIsLoggedIn }) {
@@ -32,26 +33,42 @@ function LoginForm({ isLoggedIn, setIsLoggedIn }) {
   
     return (
         <>
-        Login
       <form onSubmit={handleLogin}>
-        <input
+        <Paper sx={{
+      width: "70%",
+      maxWidth: 300,
+      margin: "0 auto",
+      padding: 10,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      marginTop: 10
+    }}>
+        <TextField
+        sx={{width: "100%"}}
           type="email"
           value={email}
+          name="email"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          required
         />
         <br />
-        <input
+        <TextField
+        sx={{width: "100%"}}
           type="password"
           value={password}
+          name="password"
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          required
         />
         <br />
 
-        <button type="submit">Login</button>
+        <Button sx={{alignItems: "center"}} type="submit" variant="contained" color="primary" >Login</Button>
         <br />
-        <Link to='/signup'>Create an account</Link>
+        Not a member?<Link to='/signup'>Create an account</Link>
+        </Paper>
       </form>
       </>
     );
