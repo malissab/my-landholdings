@@ -116,8 +116,8 @@ function UpdateLandHolding({landholding, handleCloseEditLandHolding}) {
           ))}
         </Select>
       </FormControl>
-      <Button type="submit" variant="contained" color="primary">
-        Submit
+      <Button type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
+        Update
       </Button>
     </form>
     </DialogContent>

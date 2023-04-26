@@ -114,24 +114,49 @@ router.get('/owners', async (req, res) => {
         res.status(400).send(err.message);
       }
     });
+
+    //updates an owner
+    router.put('/newowner/:id', async (req, res) => {
+        try {
+          const updatedOwner = {
+            ownerName: req.body.ownerName,
+            entityType: req.body.entityType,
+            ownerType: req.body.ownerType,
+            address: req.body.address,
+            totalNumberOfLandHoldings: req.body.totalNumberOfLandHoldings
+          };
+      
+          const owner = await Owner.findByIdAndUpdate(req.params.id, updatedOwner, { new: true });
+          if (!owner) return res.status(404).send('Owner not found');
+          res.send(owner);
+        } catch (err) {
+          console.error(err.message);
+          res.status(500).send('Server Error');
+        }
+      });
     
-    router.put('/owner/:id', async (req, res) => {
-      const owner = await Owner.findByIdAndUpdate(req.params.id, {
-        ownerName: req.body.ownerName,
-        entityType: req.body.entityType,
-        ownerType: req.body.ownerType,
-        address: req.body.address,
-        totalNumberOfLandHoldings: req.body.totalNumberOfLandHoldings
-      }, { new: true });
-      if (!owner) return res.status(404).send('Owner not found');
-      res.send(owner);
-    });
-    
-    router.delete('/owner/:id', async (req, res) => {
-      const owner = await Owner.findByIdAndRemove(req.params.id);
-      if (!owner) return res.status(404).send('Owner not found');
-      res.send(owner);
-    });
+// delete an owner
+router.delete('/owners/:ownerName', (req, res) => {
+  const ownerName = req.params.ownerName;
+
+  // delete all landholdings with the same owner name
+  LandHolding.deleteMany({ ownerName: ownerName }, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error deleting landholdings");
+    } else {
+      // delete the owner
+      Owner.findOneAndDelete({ ownerName: ownerName }, (err, owner) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("Error deleting owner");
+        } else {
+          res.status(200).send(`Deleted owner ${ownerName} and related landholdings`);
+        }
+      });
+    }
+  });
+});
 
 // Land Holding routes
 // route /api/auth/landholdings
@@ -165,6 +190,7 @@ router.get('/landholdings', async (req, res) => {
           range: req.body.range,
           titleSource: req.body.titleSource
         });
+        console.log(newLandHolding.owner);
         // Save the new LandHolding instance
         const savedLandHolding = await newLandHolding.save();
         

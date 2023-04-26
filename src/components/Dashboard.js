@@ -3,15 +3,16 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, Table
 import CreateOwnerForm from "./CreateOwnerForm";
 import CreateLandHoldingForm from "./CreateLandHoldingForm";
 import UpdateLandHolding from "./UpdateLandHolding";
+import UpdateOwner from "./UpdateOwner"
 
 function Dashboard({ isSignedUp, isLoggedIn }) {
   const [owners, setOwners] = useState([]);
   const [showLandHoldingForm, setShowLandHoldingForm] = useState(false);
-  const [updateOwnerForm, setUpdateOwnerForm] = useState(false);
+  const [showOwnerForm, setShowOwnerForm] = useState(false);
   const [selectedLandHolding, setSelectedLandHolding] = useState(null);
   const [selectedOwner, setSelectedOwner] = useState(null);
-  const [deleteOwner, setDeleteOwner] = useState(false);
-  const [DeleteLandHolding, setDeleteLandHolding] = useState(false);
+  // const [deleteOwner, setDeleteOwner] = useState(false);
+  // const [DeleteLandHolding, setDeleteLandHolding] = useState(false);
 
   const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
@@ -45,6 +46,27 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
     setShowLandHoldingForm(false);
   }
 
+  const handleEditOwner = (owner) => {
+    setSelectedOwner(owner);
+    setShowOwnerForm(true);
+  }
+
+  const handleCloseEditOwner = () => {
+    setShowOwnerForm(false);
+  }
+
+  const handleDeleteOwner = async (owner) => {
+      try {
+        // Make a DELETE request to delete the owner and all related Land Holdings
+        await fetch(delete(`http://localhost:5000/api/auth/owner/${owner._id}`));
+    
+        // Remove the owner and related Land Holdings from the frontend view
+        setOwners(owners.filter((o) => o.id !== owner.id));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
 
   useEffect(() => {
     fetch(ownersUrl)
@@ -66,7 +88,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
       <AppBar position="static">
         <Toolbar >
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            My Land Dashboard
+            My Phoenix Capital Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -92,14 +114,15 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>{owner.address}</TableCell>
               <TableCell>{owner.totalNumberOfLandHoldings}</TableCell>
               <TableCell>
-                {/* <Button variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
-                <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button> */}
+                <Button variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
+                <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button>
               </TableCell>
             </TableRow>
           ))}
           </TableBody>
           </Table>
           </TableContainer>
+          { showOwnerForm && <UpdateOwner owner={selectedOwner} setOwners={setOwners} handleCloseEditOwner={handleCloseEditOwner} />}
         <Button variant="contained" color="primary" onClick={handleOpenOwners} sx={{ margin: 1}}>
           Create Owner
         </Button>
@@ -136,11 +159,10 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
           </TableHead>
           <TableBody >
             {landHoldings.map((landholding) => {
-              console.log(landholding);
               return (
                 <TableRow key={landholding._id}>
                 <TableCell>{landholding.name}</TableCell>
-                <TableCell>{landholding.owner.ownerName}</TableCell>
+                <TableCell>{landholding.owner ? landholding.owner.ownerName : ''}</TableCell>
             <TableCell>{landholding.legalEntity}</TableCell>
             <TableCell>{landholding.netMineralAcres}</TableCell>
             <TableCell>{landholding.mineralOwnerRoyalty}%</TableCell>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField, Button } from '@mui/material';
 
 function CreateLandHoldingForm({ landHoldings, setLandHoldings, handleCloseLandHolding, owners }) {
@@ -50,7 +50,7 @@ const newLandHoldingUrl = 'http://localhost:5000/api/auth/newlandholding';
 
 const handleChange = (e) => {
   e.preventDefault();
-  console.log(owner);
+ 
 const name = `${section}-${township}-${range} ${legalEntity}`
 
 const createdLandHolding = {
@@ -66,6 +66,8 @@ const createdLandHolding = {
   titleSource
 };
 
+console.log(createdLandHolding);
+
 fetch(newLandHoldingUrl, {
   method: 'POST',
   headers: {
@@ -80,6 +82,7 @@ fetch(newLandHoldingUrl, {
   })
   .catch(error => console.error('This is Error:', error));
 }
+
 
 return (
     <form onSubmit={handleChange}>
@@ -163,7 +166,7 @@ return (
           ))}
         </Select>
       </FormControl>
-      <Button type="submit" variant="contained" color="primary">
+      <Button type="submit" variant="contained" color="primary" onClick={() => window.location.reload(false)}>
         Submit
       </Button>
     </form>

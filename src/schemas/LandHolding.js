@@ -9,8 +9,8 @@ const landHoldingSchema = new mongoose.Schema({
   mineralOwnerRoyalty: { type: Number },
   sectionName: { type: String },
   section: { type: Number, match: /^\d{3}$/, required: true  },
-  township: { type: String, match: /^[0-9]{3}[NS]$/, required: true  },
-  range: { type: String, match: /^[0-9]{3}[EW]$/, required: true  },
+  township: { type: String, match: /^[0-9]{3}[NSns]$/, required: true  },
+  range: { type: String, match: /^[0-9]{3}[EWew]$/, required: true  },
   titleSource: { type: String, enum: ['Class A', 'Class B', 'Class C', 'Class D'] },
 }, { timestamps: true });
 
