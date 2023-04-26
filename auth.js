@@ -13,7 +13,9 @@ const { ObjectId } = require('mongodb');
 const secretKey = crypto.randomBytes(64).toString('hex');
 const cors = require('cors');
 
+//allows requst to go through
 router.use(cors());
+
 
 
 
@@ -135,28 +137,38 @@ router.get('/owners', async (req, res) => {
         }
       });
     
-// delete an owner
-router.delete('/owners/:ownerName', (req, res) => {
-  const ownerName = req.params.ownerName;
 
-  // delete all landholdings with the same owner name
-  LandHolding.deleteMany({ ownerName: ownerName }, (err) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Error deleting landholdings");
-    } else {
-      // delete the owner
-      Owner.findOneAndDelete({ ownerName: ownerName }, (err, owner) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Error deleting owner");
-        } else {
-          res.status(200).send(`Deleted owner ${ownerName} and related landholdings`);
+      router.delete('/owners/:ownerId', async (req, res) => {
+      
+        try {
+          const ownerId = req.params.ownerId;
+      
+          // Delete all landholdings with the same owner name
+          await LandHolding.deleteMany({ ownerId: ownerId });
+
+          await Owner.findByIdAndDelete(ownerId);
+      
+          // Return success response
+          res.status(200).send("Delete was successful");
+        } catch (err) {
+          // If there's an error, return 500 Internal Server Error
+          console.error(err);
+          res.status(500).send("Error deleting owner and related landholdings");
         }
       });
-    }
-  });
-});
+
+      router.delete('/landholdings/owner/:ownerId', async (req, res) => {
+        try {
+          const ownerId = req.params.ownerId;
+      
+          await LandHolding.deleteMany({ owner: ownerId });
+      
+          res.status(200).send("Delete was successful");
+        } catch (err) {
+          console.error(err);
+          res.status(500).send("Error deleting landholdings");
+        }
+      });
 
 // Land Holding routes
 // route /api/auth/landholdings

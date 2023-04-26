@@ -66,7 +66,7 @@ const createdLandHolding = {
   titleSource
 };
 
-console.log(createdLandHolding);
+
 
 fetch(newLandHoldingUrl, {
   method: 'POST',
@@ -86,14 +86,16 @@ fetch(newLandHoldingUrl, {
 
 return (
     <form onSubmit={handleChange}>
-      <FormControl required>
-        <InputLabel id="select-owner-label">Owners</InputLabel>
+      <FormControl required style={{ marginTop: 5 }}>
+        <InputLabel id="select-owner-label" 
+ >Owners</InputLabel>
         <Select
           labelId="select-owner-label"
           id="owner"
           label="Owner"
           value={owner}
           onChange={handleOwnerChange}
+          style={{ width: 450 }}
         >
           {owners.map((owner) => (
             <MenuItem key={owner._id} value={owner}>
@@ -158,6 +160,7 @@ return (
           label="Title Source"
           value={titleSource}
           onChange={handleTitleSourceChange}
+          style={{ width: 200 }}
         >
           {titleSourceValues.map((value) => (
             <MenuItem key={value} value={value}>

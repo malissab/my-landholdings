@@ -11,8 +11,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   const [showOwnerForm, setShowOwnerForm] = useState(false);
   const [selectedLandHolding, setSelectedLandHolding] = useState(null);
   const [selectedOwner, setSelectedOwner] = useState(null);
-  // const [deleteOwner, setDeleteOwner] = useState(false);
-  // const [DeleteLandHolding, setDeleteLandHolding] = useState(false);
+
 
   const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
@@ -57,16 +56,24 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
 
   const handleDeleteOwner = async (owner) => {
       try {
-        // Make a DELETE request to delete the owner and all related Land Holdings
-        await fetch(delete(`http://localhost:5000/api/auth/owner/${owner._id}`));
+        const response = await fetch(`http://localhost:5000/api/auth/owners/${owner._id}`, {
+          method: 'DELETE'
+        });
     
-        // Remove the owner and related Land Holdings from the frontend view
-        setOwners(owners.filter((o) => o.id !== owner.id));
+        if (response.ok) {
+          const landHoldingsResponse = await fetch(`http://localhost:5000/api/auth/landholdings/owner/${owner._id}`, {
+            method: 'DELETE'
+          });
+          
+          if (landHoldingsResponse.ok) {
+            window.location.reload(false);
+          }
+        }
       } catch (error) {
         console.error(error);
       }
     };
-
+  
 
   useEffect(() => {
     fetch(ownersUrl)
@@ -115,7 +122,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>{owner.totalNumberOfLandHoldings}</TableCell>
               <TableCell>
                 <Button variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
-                <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button>
+               <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button> 
               </TableCell>
             </TableRow>
           ))}
