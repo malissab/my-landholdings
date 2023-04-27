@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Toolbar, Typography, AppBar } from "@mui/material";
 import CreateOwnerForm from "./CreateOwnerForm";
 import CreateLandHoldingForm from "./CreateLandHoldingForm";
@@ -209,6 +210,12 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
       </>
     );
     
+  } else {
+    return (
+      <Typography variant="h5">
+      Please <Link to='/signup'>sign up</Link> or <Link to='/login'>login</Link> to view the dashboard.
+      </Typography>
+    )
   }
 }
 

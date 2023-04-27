@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { TextField, Button, Paper } from '@mui/material'
+import { TextField, Button, Paper, Typography } from '@mui/material'
 
 
 function SignUpForm({ isSignedUp, setIsSignedUp }) {
@@ -35,7 +35,8 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
   };
 
   return (
-    <div>   
+    <div> 
+      <Typography variant="h5">Welcome to Phoenix Capital.</Typography>  
       <form onSubmit={handleSignup}>
         <Paper sx={{
       width: "70%",
