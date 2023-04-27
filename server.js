@@ -8,7 +8,7 @@ const router = express.Router();
 //allows request to go through
 
 router.use(cors({
-    origin: 'my-landholdings-dashboard.vercel.app'
+    origin: 'https://my-landholdings.vercel.app'
   }));
 
 // routes

@@ -26,7 +26,6 @@ const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
           })
             .then((response) => response.json())
             .then((data) => {
-            
               setOwners(prevOwners => prevOwners.map(prevOwner => prevOwner._id === owner._id ? owner : prevOwner));
             })
             .catch((error) => console.error(error));
