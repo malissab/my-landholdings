@@ -17,11 +17,10 @@ app.get("/api", (req, res) =>{
 app.use('/api/auth', loginRoute);
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
-    console.log('db is connected!')
 
     app.listen(process.env.PORT, () => {
-        console.log(`Server up on port ${process.env.PORT}`);
+        
     });
 }).catch((error) =>{
-    console.log(error);
+    console.log(error)
 });

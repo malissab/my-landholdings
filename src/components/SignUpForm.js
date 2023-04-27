@@ -28,7 +28,7 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        
         localStorage.setItem("token", data.token);
         setIsSignedUp(true);
       });

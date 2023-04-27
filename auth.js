@@ -76,7 +76,7 @@ router.post('/signup', async (req, res) => {
   
       // Generate JWT token and send it in response
       const token = jwt.sign({ userId: user._id }, secretKey, process.env.JWT_SECRET);
-      console.log('token:', token)
+      
       res.json({ token });
     } catch (err) {
       console.error(err);
@@ -184,7 +184,7 @@ router.get('/landholdings', async (req, res) => {
       try {    
         // Find the owner by its ID
         const owner = await Owner.findOne({ ownerName: req.body.ownerName })
-        console.log(owner.ownerName)
+       
         if (!owner) {
           return res.status(404).json({ message: 'Owner not found' });
         }
@@ -202,7 +202,7 @@ router.get('/landholdings', async (req, res) => {
           range: req.body.range,
           titleSource: req.body.titleSource
         });
-        console.log(newLandHolding.owner);
+       
         // Save the new LandHolding instance
         const savedLandHolding = await newLandHolding.save();
         
