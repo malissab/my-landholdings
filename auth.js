@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('/Users/monet./my-land-app/src/schemas/User.js');
-const Owner = require('/Users/monet./my-land-app/src/schemas/Owner.js');
-const LandHolding = require('/Users/monet./my-land-app/src/Schemas/LandHolding.js')
+const User = require('/Users/monet./Development/my-landholdings/src/schemas/User.js');
+const Owner = require('/Users/monet./Development/my-landholdings/src/schemas/Owner.js');
+const LandHolding = require('/Users/monet./Development/my-landholdings/src/schemas/LandHolding.js')
 
 
 const bcrypt = require('bcryptjs');
