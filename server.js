@@ -1,7 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
+const router = express.Router();
 
+
+//allows request to go through
+
+router.use(cors({
+    origin: 'http://localhost:5000/api/auth/owners'
+  }));
 
 // routes
 const loginRoute = require('./auth.js');

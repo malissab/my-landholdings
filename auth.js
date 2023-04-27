@@ -13,8 +13,11 @@ const { ObjectId } = require('mongodb');
 const secretKey = crypto.randomBytes(64).toString('hex');
 const cors = require('cors');
 
-//allows requst to go through
-router.use(cors());
+//allows request to go through
+
+router.use(cors({
+  //   origin: 'http://localhost:5000/api/auth/owners'
+  }));
 
 
 
