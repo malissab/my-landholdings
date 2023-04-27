@@ -5,7 +5,7 @@ function UpdateOwner({ owner, setOwners, handleCloseEditOwner }) {
 const entityTypeValues = ['Company', 'Individual', 'Investor', 'Trust'];
 const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
 
-    const putUrl = `http://localhost:5000/api/auth/newowner/${owner._id}`
+    const putUrl = `https://my-landholdings.vercel.app/api/auth/newowner/${owner._id}`
 
         const [formData, setFormData] = useState({
           ownerName: owner.ownerName,

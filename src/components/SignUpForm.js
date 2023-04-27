@@ -8,7 +8,7 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
-  const signUpUrl = "http://localhost:5000/api/auth/signup";
+  const signUpUrl = "https://my-landholdings.vercel.app/api/auth/signup";
 
 
   if (isSignedUp) {

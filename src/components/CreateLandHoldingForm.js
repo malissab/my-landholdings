@@ -46,7 +46,7 @@ function CreateLandHoldingForm({ landHoldings, setLandHoldings, handleCloseLandH
 
   const titleSourceValues = ['Class A', 'Class B', 'Class C', 'Class D'];
 
-const newLandHoldingUrl = 'http://localhost:5000/api/auth/newlandholding';
+const newLandHoldingUrl = 'https://my-landholdings.vercel.app/api/auth/newlandholding';
 
 const handleChange = (e) => {
   e.preventDefault();

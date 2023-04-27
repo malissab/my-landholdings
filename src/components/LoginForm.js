@@ -7,7 +7,7 @@ import { TextField, Button, Paper, Typography } from '@mui/material'
 function LoginForm({ isLoggedIn, setIsLoggedIn }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const loginUrl = 'http://localhost:5000/api/auth/login';
+    const loginUrl = 'https://my-landholdings.vercel.app/api/auth/login';
 
     if (isLoggedIn) {
         return <Navigate to="/dashboard" />;

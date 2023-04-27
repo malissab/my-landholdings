@@ -13,7 +13,7 @@ function UpdateLandHolding({landholding, handleCloseEditLandHolding}) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const patchUrl = `http://localhost:5000/api/auth/newlandholding/${landholding._id}`
+    const patchUrl = `https://my-landholdings.vercel.app/api/auth/newlandholding/${landholding._id}`
 
     const name = `${section}-${township}-${range} ${legalEntity}`
 

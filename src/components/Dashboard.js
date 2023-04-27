@@ -17,8 +17,8 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
   const [openLandHoldings, setOpenLandHoldings] = useState(false);
-  const ownersUrl = "http://localhost:5000/api/auth/owners";
-  const landHoldingsUrl = "http://localhost:5000/api/auth/landholdings";
+  const ownersUrl = "https://my-landholdings.vercel.app/auth/owners";
+  const landHoldingsUrl = "https://my-landholdings.vercel.app/auth/landholdings";
 
 
   const handleOpenOwners = () => {
@@ -57,12 +57,12 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
 
   const handleDeleteOwner = async (owner) => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/owners/${owner._id}`, {
+        const response = await fetch(`https://my-landholdings.vercel.app/api/auth/owners/${owner._id}`, {
           method: 'DELETE'
         });
     
         if (response.ok) {
-          const landHoldingsResponse = await fetch(`http://localhost:5000/api/auth/landholdings/owner/${owner._id}`, {
+          const landHoldingsResponse = await fetch(`https://my-landholdings.vercel.app/api/auth/landholdings/owner/${owner._id}`, {
             method: 'DELETE'
           });
           

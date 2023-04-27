@@ -13,7 +13,7 @@ const [totalNumberOfLandHoldings, setTotalNumberOfLandHoldings] = useState('');
 const entityTypeValues = ['Company', 'Individual', 'Investor', 'Trust'];
 const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
 
-const newOwnerUrl = 'http://localhost:5000/api/auth/newowner';
+const newOwnerUrl = 'https://my-landholdings.vercel.app/api/auth/newowner';
 
 
 

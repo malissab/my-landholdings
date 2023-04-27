@@ -16,7 +16,6 @@ const cors = require('cors');
 //allows request to go through
 
 router.use(cors({
-  //   origin: 'http://localhost:5000/api/auth/owners'
   }));
 
 
