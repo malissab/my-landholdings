@@ -15,8 +15,7 @@ const cors = require('cors');
 
 //allows request to go through
 
-router.use(cors({
-  }));
+router.use(cors());
 
 
 
@@ -59,7 +58,7 @@ router.post('/signup', async (req, res) => {
     }
   });
   
-// route api/auth/dashboard
+// route api/auth/login
   router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
