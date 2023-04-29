@@ -17,7 +17,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
   const [openLandHoldings, setOpenLandHoldings] = useState(false);
-  const ownersUrl = `${window.location.protocol} + '//' + ${window.location.host}`;
+  const ownersUrl = "https://my-landholdings.vercel.app/api/auth/owners";;
   const landHoldingsUrl = "https://my-landholdings.vercel.app/api/auth/landholdings";
 
 
