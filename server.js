@@ -20,7 +20,7 @@ app.get("/api", (req, res) =>{
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
-
+console.log('URI IS', process.env.MONGO_URI)
     app.listen(process.env.PORT, () => {
         console.log(`listening on ${process.env.PORT}`)
     });
