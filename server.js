@@ -19,11 +19,7 @@ app.get("/api", (req, res) =>{
 });
 
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-}).then(() => {
+mongoose.connect(process.env.MONGO_URI).then(() => {
     app.listen(process.env.PORT, () => {
         console.log(`listening on ${process.env.PORT}`)
     });
