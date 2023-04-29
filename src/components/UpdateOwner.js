@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Dialog, DialogTitle, DialogContent } from '@mui/material';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function UpdateOwner({ owner, setOwners, handleCloseEditOwner }) {
 const entityTypeValues = ['Company', 'Individual', 'Investor', 'Trust'];
 const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
 
-    const putUrl = `https://my-landholdings.vercel.app/api/auth/newowner/${owner._id}`
+    const putUrl = `${apiUrl}/api/auth/newowner/${owner._id}`
 
         const [formData, setFormData] = useState({
           ownerName: owner.ownerName,

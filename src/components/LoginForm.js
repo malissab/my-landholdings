@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { TextField, Button, Paper, Typography } from '@mui/material'
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 function LoginForm({ isLoggedIn, setIsLoggedIn }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const loginUrl = 'https://my-landholdings.vercel.app/api/auth/login';
+    const loginUrl = `${apiUrl}/api/auth/login`;
 
     if (isLoggedIn) {
         return <Navigate to="/dashboard" />;

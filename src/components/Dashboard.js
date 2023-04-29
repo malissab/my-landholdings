@@ -5,6 +5,8 @@ import CreateOwnerForm from "./CreateOwnerForm";
 import CreateLandHoldingForm from "./CreateLandHoldingForm";
 import UpdateLandHolding from "./UpdateLandHolding";
 import UpdateOwner from "./UpdateOwner"
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 function Dashboard({ isSignedUp, isLoggedIn }) {
   const [owners, setOwners] = useState([]);
@@ -17,8 +19,8 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   const [openOwners, setOpenOwners] = useState(false);
   const [landHoldings, setLandHoldings] = useState([]);
   const [openLandHoldings, setOpenLandHoldings] = useState(false);
-  const ownersUrl = "https://my-landholdings.vercel.app/api/auth/owners";;
-  const landHoldingsUrl = "https://my-landholdings.vercel.app/api/auth/landholdings";
+  const ownersUrl = `${apiUrl}/api/auth/owners`;
+  const landHoldingsUrl = `${apiUrl}/api/auth/landholdings`;
 
 
   const handleOpenOwners = () => {
@@ -57,12 +59,12 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
 
   const handleDeleteOwner = async (owner) => {
       try {
-        const response = await fetch(`https://my-landholdings.vercel.app/api/auth/owners/${owner._id}`, {
+        const response = await fetch(`${apiUrl}/api/auth/owners/${owner._id}`, {
           method: 'DELETE'
         });
     
         if (response.ok) {
-          const landHoldingsResponse = await fetch(`https://my-landholdings.vercel.app/api/auth/landholdings/owner/${owner._id}`, {
+          const landHoldingsResponse = await fetch(`${apiUrl}/api/auth/landholdings/owner/${owner._id}`, {
             method: 'DELETE'
           });
           

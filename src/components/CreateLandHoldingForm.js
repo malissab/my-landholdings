@@ -10,6 +10,7 @@ function CreateLandHoldingForm({ landHoldings, setLandHoldings, handleCloseLandH
   const [township, setTownship] = useState('');
   const [range, setRange] = useState('');
   const [titleSource, setTitleSource] = useState('');
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
   const handleOwnerChange = (e) => {
@@ -46,7 +47,7 @@ function CreateLandHoldingForm({ landHoldings, setLandHoldings, handleCloseLandH
 
   const titleSourceValues = ['Class A', 'Class B', 'Class C', 'Class D'];
 
-const newLandHoldingUrl = 'https://my-landholdings.vercel.app/api/auth/newlandholding';
+const newLandHoldingUrl = `${apiUrl}/api/auth/newlandholding`;
 
 const handleChange = (e) => {
   e.preventDefault();

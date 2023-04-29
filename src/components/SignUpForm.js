@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { TextField, Button, Paper, Typography } from '@mui/material'
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 function SignUpForm({ isSignedUp, setIsSignedUp }) {
@@ -8,7 +9,7 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
-  const signUpUrl = "https://my-landholdings.vercel.app/api/auth/signup";
+  const signUpUrl = `${apiUrl}/api/auth/signup`;
 
 
   if (isSignedUp) {

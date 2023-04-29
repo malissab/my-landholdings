@@ -9,11 +9,12 @@ const [entityType, setEntityType] = useState('');
 const [ownerType, setOwnerType] = useState('');
 const [address, setAddress] = useState('');
 const [totalNumberOfLandHoldings, setTotalNumberOfLandHoldings] = useState('');
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const entityTypeValues = ['Company', 'Individual', 'Investor', 'Trust'];
 const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
 
-const newOwnerUrl = 'https://my-landholdings.vercel.app/api/auth/newowner';
+const newOwnerUrl = `${apiUrl}/api/auth/newowner`;
 
 
 

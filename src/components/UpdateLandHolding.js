@@ -9,11 +9,12 @@ function UpdateLandHolding({landholding, handleCloseEditLandHolding}) {
   const [township, setTownship] = useState(landholding.township);
   const [range, setRange] = useState(landholding.range);
   const [titleSource, setTitleSource] = useState(landholding.titleSource);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const patchUrl = `https://my-landholdings.vercel.app/api/auth/newlandholding/${landholding._id}`
+    const patchUrl = `${apiUrl}/api/auth/newlandholding/${landholding._id}`
 
     const name = `${section}-${township}-${range} ${legalEntity}`
 
