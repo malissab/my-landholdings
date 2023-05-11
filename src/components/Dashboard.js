@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Toolbar, Typography, AppBar } from "@mui/material";
 import CreateOwnerForm from "./CreateOwnerForm";
 import CreateLandHoldingForm from "./CreateLandHoldingForm";
@@ -22,6 +22,18 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
   const ownersUrl = `${apiUrl}/api/auth/owners`;
   const landHoldingsUrl = `${apiUrl}/api/auth/landholdings`;
 
+  useEffect(() => {
+    fetch(ownersUrl)
+      .then((res) => res.json())
+      .then((data) => setOwners(data));
+  }, []);
+
+  useEffect(() => {
+    fetch(landHoldingsUrl)
+      .then((res) => res.json())
+      .then((data) => 
+      setLandHoldings(data));
+  }, []);
 
   const handleOpenOwners = () => {
     setOpenOwners(true);
@@ -90,20 +102,13 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
         console.error(error);
       }
     };
+
+    const handleLogout = async () => {
+      localStorage.clear();
+      <Navigate to="/dashboard" />;
+      window.location.reload(false);  
+    }
   
-
-  useEffect(() => {
-    fetch(ownersUrl)
-      .then((res) => res.json())
-      .then((data) => setOwners(data));
-  }, []);
-
-  useEffect(() => {
-    fetch(landHoldingsUrl)
-      .then((res) => res.json())
-      .then((data) => 
-      setLandHoldings(data));
-  }, []);
 
   if (isSignedUp || isLoggedIn === true) {
     return (
@@ -114,6 +119,7 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             My Phoenix Capital Dashboard
           </Typography>
+          <Button onClick={handleLogout} color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>

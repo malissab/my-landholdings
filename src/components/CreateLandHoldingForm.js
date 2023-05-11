@@ -89,14 +89,14 @@ return (
     <form onSubmit={handleChange}>
       <FormControl required style={{ marginTop: 5 }}>
         <InputLabel id="select-owner-label" 
- >Owners</InputLabel>
+         >Owners</InputLabel>
         <Select
           labelId="select-owner-label"
           id="owner"
           label="Owner"
           value={owner}
           onChange={handleOwnerChange}
-          sx={{width: 550, display: "flex",
+          sx={{width: 550, display: "grid",
           flexDirection: "column"}}>
           {owners.map((owner) => (
             <MenuItem key={owner._id} value={owner}>
