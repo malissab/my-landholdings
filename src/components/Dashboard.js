@@ -76,6 +76,20 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
         console.error(error);
       }
     };
+
+    const handleDeleteLandHolding = async (landholding) => {
+      try {
+        const response = await fetch(`${apiUrl}/api/auth/landholding/${landholding._id}`, {
+          method: 'DELETE'
+        });
+    
+        if (response.ok) {
+          window.location.reload(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
   
 
   useEffect(() => {
@@ -124,8 +138,10 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
               <TableCell>{owner.address}</TableCell>
               <TableCell>{owner.totalNumberOfLandHoldings}</TableCell>
               <TableCell>
-                <Button sx={{margin: 1}} variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
+              <div style={{ display: 'flex' }}>
+                <Button sx={{marginRight: 1}} variant="contained" color="primary" onClick={() => handleEditOwner(owner)}>Edit</Button>
                <Button variant="contained" color="primary" onClick={() => handleDeleteOwner(owner)}>Delete</Button> 
+              </div>
               </TableCell>
             </TableRow>
           ))}
@@ -182,8 +198,10 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
             <TableCell>{landholding.range}</TableCell>
             <TableCell>{landholding.titleSource}</TableCell>
             <TableCell>
-                <Button variant="contained" color="primary" onClick={() => handleEditLandHolding(landholding)}>Edit</Button>
-                {/* <Button variant="contained" color="primary" onClick={() => handleDeleteLandHolding(landholding)}>Delete</Button> */}
+            <div style={{ display: 'flex' }}>
+                <Button sx={{marginRight: 1}} variant="contained" color="primary" onClick={() => handleEditLandHolding(landholding)}>Edit</Button>
+                <Button variant="contained" color="primary" onClick={() => handleDeleteLandHolding(landholding)}>Delete</Button>
+              </div>
               </TableCell>
             </TableRow>
               )
