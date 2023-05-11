@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { TextField, Button, Paper, Typography } from '@mui/material'
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -36,14 +36,13 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
   };
 
   return (
-    <div> 
-      <Typography variant="h5">Welcome to Phoenix Capital.</Typography>  
+    <> 
+      <Typography variant="h4">My Phoenix Dashboard</Typography>  
       <form onSubmit={handleSignup}>
         <Paper sx={{
-      width: "70%",
-      maxWidth: 300,
+      width: "30%",
       margin: "0 auto",
-      padding: 10,
+      padding: 8,
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
@@ -80,9 +79,10 @@ function SignUpForm({ isSignedUp, setIsSignedUp }) {
           />
         <br />
                 <Button sx={{alignItems: "center"}} type="submit" variant="contained" color="primary">Sign up</Button>
-             </Paper> 
+        <Typography sx={{marginTop: 2}}>Already have an account? <Link to='/login'> Log In</Link></Typography>     
+        </Paper> 
       </form>
-    </div>
+    </>
   );
 }
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { TextField, Button, Paper, Typography } from '@mui/material'
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -34,8 +33,7 @@ function LoginForm({ isLoggedIn, setIsLoggedIn }) {
   
     return (
         <>
-              <Typography variant="h5">Welcome to Phoenix Capital.</Typography>  
-
+        <Typography variant='h4'>My Phoenix Dashboard</Typography>  
       <form onSubmit={handleLogin}>
         <Paper sx={{
       width: "70%",
@@ -68,9 +66,9 @@ function LoginForm({ isLoggedIn, setIsLoggedIn }) {
         />
         <br />
 
-        <Button sx={{alignItems: "center"}} type="submit" variant="contained" color="primary" >Login</Button>
+        <Button sx={{alignItems: "center"}} type="submit" variant="contained" color="primary" >Log In</Button>
         <br />
-        Not a member?<Link to='/signup'>Create an account</Link>
+        <Typography>Not a member? <Link to='/signup'> Create an account</Link></Typography>
         </Paper>
       </form>
       </>
