@@ -26,14 +26,14 @@ function Dashboard({ isSignedUp, isLoggedIn }) {
     fetch(ownersUrl)
       .then((res) => res.json())
       .then((data) => setOwners(data));
-  }, []);
+  }, [ownersUrl]);
 
   useEffect(() => {
     fetch(landHoldingsUrl)
       .then((res) => res.json())
       .then((data) => 
       setLandHoldings(data));
-  }, []);
+  }, [landHoldingsUrl]);
 
   const handleOpenOwners = () => {
     setOpenOwners(true);
