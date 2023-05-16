@@ -131,4 +131,4 @@ function UpdateLandHolding({landholding, handleCloseEditLandHolding}) {
   )
 }
 
-export default UpdateLandHolding
+export default UpdateLandHolding;

@@ -75,4 +75,4 @@ function LoginForm({ isLoggedIn, setIsLoggedIn }) {
     );
 }
 
-export default LoginForm
+export default LoginForm;

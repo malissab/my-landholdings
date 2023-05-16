@@ -109,4 +109,4 @@ const ownerTypeValues = ['Competitor', 'Seller', 'Investor', 'Professional'];
   )
 }
 
-export default UpdateOwner
+export default UpdateOwner;

@@ -108,4 +108,4 @@ const handleChange = (e) => {
   );
 }
 
-export default CreateOwnerForm
+export default CreateOwnerForm;
