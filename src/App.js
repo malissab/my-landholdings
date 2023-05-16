@@ -18,11 +18,9 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<LoginForm />} />
-      <Route path="/signup" element={<SignUpForm isSignedUp={isSignedUp} setIsSignedUp={setIsSignedUp}/>} />
-      <Route path="/login" element={<LoginForm isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
       <Route path="/dashboard" element={<Dashboard isSignedUp={isSignedUp} isLoggedIn={isLoggedIn} />} />
-
+      <Route path="/signup" element={<SignUpForm isSignedUp={isSignedUp} setIsSignedUp={setIsSignedUp}/>} />
+      <Route path="/" element={<LoginForm isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </Router>
   );

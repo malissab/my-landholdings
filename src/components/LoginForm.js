@@ -13,7 +13,7 @@ function LoginForm({ isLoggedIn, setIsLoggedIn }) {
         return <Navigate to="/dashboard" />;
       }
 
-      const handleLogin = (e) => {
+    const handleLogin = (e) => {
             e.preventDefault();
             const loggedInUser = { email, password };
             fetch(loginUrl, {
